@@ -74,8 +74,8 @@ img { max-width: 100%; height: auto; display: block; }
   will-change: transform;
   pointer-events: none;
 }
-.cheese-back  { --tile: 640px; z-index: -2; background-image: url("../img/cheese-back.png"); }
-.cheese-front { --tile: 900px; z-index: -1; background-image: url("../img/cheese-front.png"); }
+.cheese-back  { --tile: 640px; z-index: -2; background-image: url("../img/cheese-back.png?v=4"); }
+.cheese-front { --tile: 900px; z-index: -1; background-image: url("../img/cheese-front.png?v=4"); }
 
 /* ---------- Header ---------- */
 .site-header {
@@ -141,7 +141,7 @@ main { flex: 1; padding-top: var(--top-space); }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: url("../img/cheese-stamp.png") repeat;
+  background: url("../img/cheese-stamp.png?v=4") repeat;
   background-size: 360px 360px;
   opacity: var(--stamp-opacity);
 }
@@ -305,12 +305,13 @@ main { flex: 1; padding-top: var(--top-space); }
 .footer-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 36px;
   color: var(--white);
-  font-size: 1.15rem;
+  font-size: 1.55rem;
   line-height: 1.15;
 }
 .footer-brand img { width: 52px; height: 52px; }
+.footer-brand em { font-style: normal; color: var(--gold); }
 .footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
 .footer-links a { color: var(--white); }
 .footer-links a:hover { color: var(--gold); }
