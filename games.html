@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mouse Minded Games</title>
+  <title>Games — Mouse Minded Games</title>
   <meta name="description" content="Mouse Minded Games — indie game studio.">
   <link rel="icon" href="img/favicon.png" type="image/png">
   <link rel="preload" href="fonts/YoungSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="inner">
   <!-- Background: gradient + two cheese layers (back moves slower than front) -->
   <div class="bg-gradient" aria-hidden="true"></div>
   <div class="bg-layer cheese-back"  data-speed="0.15" data-mouse="6"  aria-hidden="true"></div>
@@ -20,8 +20,8 @@
     <div class="header-inner">
       <a class="brand" href="index.html">Mouse Minded <em>Games</em></a>
       <nav class="site-nav" aria-label="Main">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="games.html">Games</a>
+        <a href="index.html">Home</a>
+        <a href="games.html" aria-current="page">Games</a>
         <a href="news.html">News</a>
         <a href="about.html">About</a>
       </nav>
@@ -29,40 +29,19 @@
   </header>
 
   <main id="top">
-    <!-- Logo band -->
-    <section class="band band-logo">
-      <div class="wrap logo-row">
-        <img class="mascot" src="img/mascot.png" alt="" width="388" height="442">
-        <img class="logo" src="img/logo.png" alt="Mouse Minded Games" width="944" height="223">
-      </div>
+    <!-- Page title band -->
+    <section class="band band-solid band-title">
+      <div class="wrap"><h1 class="page-title">Our Games</h1></div>
     </section>
 
     <!-- Coming soon band (stamped cheese pattern inside) -->
-    <section class="band band-stamp band-coming">
+    <section class="band band-stamp band-coming band-grow">
       <div class="wrap">
         <div class="preview">
           <img src="img/preview.jpg" alt="" width="1024" height="512">
-          <h1 class="cheesy-text" data-text="Coming Soon"><span>Coming Soon</span></h1>
+          <h2 class="cheesy-text" data-text="Coming Soon"><span>Coming Soon</span></h2>
         </div>
         <p class="panel lede">Our mice are hard at work!</p>
-      </div>
-    </section>
-
-    <!-- Info panels -->
-    <section class="band band-info">
-      <div class="wrap grid">
-        <section class="panel">
-          <h2><a href="games.html">Games</a></h2>
-          <p>Currently cooking...</p>
-        </section>
-        <section class="panel">
-          <h2><a href="news.html">News</a></h2>
-          <p>No snacks found.</p>
-        </section>
-        <section class="panel">
-          <h2><a href="about.html">About</a></h2>
-          <p>Mouse Minded Games is an indie game studio founded in Austin, Texas.</p>
-        </section>
       </div>
     </section>
 

@@ -1,15 +1,45 @@
-/* ---------- Theme ---------- */
+/* ---------- Font ---------- */
+@font-face {
+  font-family: "Young Serif";
+  src: url("../fonts/YoungSerif-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* ---------- Theme (edit colors here) ---------- */
 :root {
-  --tile: 256px;                 /* must match the background image's pixel size */
-  --bg: #181a26;
-  --panel: rgba(20, 22, 34, 0.78);
-  --panel-border: rgba(255, 255, 255, 0.08);
-  --text: #e8e9f0;
-  --muted: #a3a6b8;
-  --accent: #f5c84c;
-  --radius: 14px;
+  /* primaries (warm cheese tones) */
+  --white:  #fbf3e2;   /* bone white */
+  --gold:   #ffd25c;   /* gouda gold */
+  --orange: #f29a38;   /* cheddar */
+  --red:    #d4562e;   /* rind red */
+  /* contrast */
+  --cream:  #fff4d6;   /* panel fill (butter cream) */
+  --maroon: #5a2d14;   /* text on cream */
+  --brown:  #8a4820;
+  --soft-text: #9a7154;   /* muted brown for descriptions */
+  --rust:   #7c3d1c;   /* top + bottom bars (toasted crust) */
+  --clay:   #c9692a;   /* logo + info bands (aged cheddar) */
+  --brick:  #eb9a3e;   /* coming soon band (golden cheddar) */
+
+  /* background gradient: top -> bottom */
+  --grad-top:    #f2a05c;
+  --grad-mid:    #f7bd55;
+  --grad-bottom: #fcd96a;
+
+  /* band colors */
+  --band-logo:   var(--clay);
+  --band-coming: var(--brick);
+  --band-info:   var(--clay);
+  --stamp-opacity: 0.1;   /* cheese pattern inside the Coming Soon band */
+
+  /* spacing */
+  --top-space: var(--dead-space);  /* open space under the top bar (matches the bottom) */
+  --dead-space: 22vh;     /* open space above the bottom bar */
+
+  --radius: 18px;
   --max: 1080px;
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font: "Young Serif", Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -19,113 +49,282 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--grad-bottom);
+  color: var(--white);
   font-family: var(--font);
   line-height: 1.6;
 }
 a { color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
 .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
 
-/* ---------- Parallax background ---------- */
-/* Oversized by one tile on each side so it can shift without showing edges. */
-.bg {
-  position: fixed;
-  inset: calc(var(--tile) * -1);
-  background: url("../img/bg-tile.png") repeat;
-  background-size: var(--tile) var(--tile);
-  z-index: -2;
-  will-change: transform;
-}
-/* Darkens edges so foreground text always reads over the texture. */
-.bg-shade {
+/* ---------- Background ---------- */
+.bg-gradient {
   position: fixed;
   inset: 0;
-  z-index: -1;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%);
+  z-index: -3;
+  background: linear-gradient(to bottom, var(--grad-top) 0%, var(--grad-mid) 50%, var(--grad-bottom) 100%);
+}
+/* Each cheese layer is a seamless tile, oversized by one tile so it can drift without showing edges. */
+.bg-layer {
+  position: fixed;
+  inset: calc(var(--tile) * -1);
+  background-repeat: repeat;
+  background-size: var(--tile) var(--tile);
+  will-change: transform;
   pointer-events: none;
 }
+.cheese-back  { --tile: 640px; z-index: -2; background-image: url("../img/cheese-back.png"); }
+.cheese-front { --tile: 900px; z-index: -1; background-image: url("../img/cheese-front.png"); }
 
 /* ---------- Header ---------- */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(14, 15, 24, 0.85);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--panel-border);
+  background: var(--rust);
 }
 .header-inner {
+  padding: 0 28px;          /* full width: brand far left, links far right */
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  min-height: 64px;
+  min-height: 68px;
   flex-wrap: wrap;
 }
 .brand {
-  font-weight: 800;
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.28em;
   text-decoration: none;
-  letter-spacing: 0.02em;
+  font-size: 1.25rem;
+  color: var(--white);
 }
-.brand span { color: var(--accent); }
-.site-nav { display: flex; gap: 6px; }
-.site-nav a {
+.brand em { font-style: normal; color: var(--gold); }
+.site-nav { display: flex; gap: 4px; }
+.site-nav a,
+.footer-links a {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-decoration: none;
-  color: var(--muted);
-  padding: 8px 12px;
-  border-radius: 8px;
+}
+.site-nav a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--white);
   transition: color .15s, background .15s;
 }
-.site-nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+.site-nav a:hover { color: var(--maroon); background: var(--gold); }
 
-/* ---------- Main ---------- */
-main.wrap { flex: 1; padding-top: 56px; padding-bottom: 56px; }
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--panel-border);
+/* ---------- Bands ---------- */
+main { flex: 1; padding-top: var(--top-space); }
+/* Inner pages: no top spacer; the description band grows by the same amount instead */
+.inner main { padding-top: 0; }
+.inner .band-grow {
+  padding-top: calc(64px + var(--top-space) / 2);
+  padding-bottom: calc(64px + var(--top-space) / 2);
+}
+.band {
+  position: relative;
+  padding: 40px 0;
+}
+.band-logo   { background: var(--band-logo); padding: 32px 0; }
+.band-coming { background: var(--band-coming); padding: 48px 0; }
+.band-info   { background: var(--band-info); }
+
+/* Stamped cheese pattern inside a band (does not move with parallax) */
+.band-stamp { isolation: isolate; }
+.band-stamp::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("../img/cheese-stamp.png") repeat;
+  background-size: 360px 360px;
+  opacity: var(--stamp-opacity);
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+}
+.mascot { width: auto; height: 210px; flex-shrink: 0; }
+.logo { width: min(640px, 100%); min-width: 0; }
+
+/* Preview: image is scaled up to fill the masked frame (hides the blurred edges). */
+.preview {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  max-width: 820px;
+  margin: 0 auto;
   border-radius: var(--radius);
-  padding: 28px;
-  backdrop-filter: blur(6px);
-  scroll-margin-top: 84px;
+  overflow: hidden;
+  border: 5px solid var(--gold);
+  box-shadow: 0 10px 24px rgba(90, 58, 44, 0.22);
 }
-.hero { text-align: center; padding: 72px 28px; margin-bottom: 24px; }
-.hero .eyebrow {
-  margin: 0 0 8px;
-  color: var(--accent);
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-size: 0.85rem;
+.preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
 }
-h1 { margin: 0; font-size: clamp(2.4rem, 7vw, 4.5rem); line-height: 1.05; }
-.hero .lede { margin: 16px auto 0; max-width: 560px; color: var(--muted); font-size: 1.1rem; }
-h2 { margin: 0 0 8px; font-size: 1.25rem; }
-.panel p { margin: 0; color: var(--muted); }
+
+/* Logo-style text: gold gradient fill with a red outline (matches the Mouse Minded wordmark).
+   The outline is drawn by ::before underneath; the gradient fill is the inner <span>. */
+.cheesy-text {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 8vw, 5rem);
+  line-height: 1;
+}
+.cheesy-text::before {
+  content: attr(data-text);
+  grid-area: 1 / 1;
+  color: var(--red);
+  /* outline = ring of shadows around the letters */
+  text-shadow:
+    0.045em 0.000em 0 var(--red),
+    0.042em 0.017em 0 var(--red),
+    0.032em 0.032em 0 var(--red),
+    0.017em 0.042em 0 var(--red),
+    0.000em 0.045em 0 var(--red),
+    -0.017em 0.042em 0 var(--red),
+    -0.032em 0.032em 0 var(--red),
+    -0.042em 0.017em 0 var(--red),
+    -0.045em 0.000em 0 var(--red),
+    -0.042em -0.017em 0 var(--red),
+    -0.032em -0.032em 0 var(--red),
+    -0.017em -0.042em 0 var(--red),
+    -0.000em -0.045em 0 var(--red),
+    0.017em -0.042em 0 var(--red),
+    0.032em -0.032em 0 var(--red),
+    0.042em -0.017em 0 var(--red),
+    0 0.08em 0 rgba(90, 58, 44, 0.3);
+}
+.cheesy-text span {
+  grid-area: 1 / 1;
+  position: relative;
+  background: linear-gradient(to bottom, var(--orange) 15%, var(--gold) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Panels ---------- */
+.panel {
+  background: var(--cream);
+  color: var(--maroon);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  box-shadow: 0 5px 0 rgba(90, 58, 44, 0.2);
+  scroll-margin-top: 90px;
+}
+.panel h2 { margin: 0 0 6px; font-weight: 400; font-size: 1.5rem; color: var(--red); }
+.panel p { margin: 0; color: var(--soft-text); }
+
+.lede {
+  width: fit-content;
+  max-width: 100%;
+  margin: 32px auto 0;
+  padding: 14px 32px;
+  font-size: 1.35rem;
+  text-align: center;
+  font-style: italic;
+  color: var(--soft-text);
+}
+
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+
+.dead-space { height: var(--dead-space); }
+
+/* Make the cheesy heading usable outside the preview frame */
+.cheesy-text.inline { position: relative; inset: auto; }
+
+/* ---------- Inner pages ---------- */
+.band.band-title { padding: 36px 0; text-align: center; }
+.page-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 7vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-shadow: 0 4px 0 rgba(90, 58, 44, 0.25);
+}
+.band-solid { background: var(--band-info); padding: 72px 0; }
+.band-stamped { background: var(--band-coming); padding: 64px 0; }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+.big-statement {
+  margin: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--white);
+}
+.big-statement small { display: block; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 8px; color: var(--gold); }
+.big-statement span  { display: block; font-size: clamp(2.8rem, 7vw, 5.2rem); }
+.band-stamped .big-statement small { color: var(--rust); }
+.about-copy p { margin: 0 0 16px; font-size: 1.15rem; font-style: italic; color: var(--white); opacity: 0.9; }
+.about-copy p:last-child { margin-bottom: 0; }
+
+/* nav: highlight current page */
+.site-nav a[aria-current="page"] { color: var(--gold); }
+.panel h2 a { text-decoration: none; }
+.panel h2 a:hover { text-decoration: underline; }
+.brand, .footer-brand { text-decoration: none; }
 
 /* ---------- Footer ---------- */
 .site-footer {
-  background: rgba(14, 15, 24, 0.9);
-  border-top: 1px solid var(--panel-border);
-  padding: 24px 0;
+  background: var(--rust);
+  padding: 44px 0 88px;     /* tall tail under the links */
   font-size: 0.9rem;
 }
 .footer-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 24px;
   flex-wrap: wrap;
+  padding: 0 28px;          /* full width: brand far left, copyright far right */
 }
-.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
-.footer-links a { color: var(--muted); text-decoration: none; }
-.footer-links a:hover { color: var(--text); text-decoration: underline; }
-.copyright { margin: 0; color: var(--muted); }
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--white);
+  font-size: 1.15rem;
+  line-height: 1.15;
+}
+.footer-brand img { width: 52px; height: 52px; }
+.footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.footer-links a { color: var(--white); }
+.footer-links a:hover { color: var(--gold); }
+.copyright { margin: 0; color: var(--white); opacity: 0.75; }
 
 @media (max-width: 600px) {
   .header-inner { justify-content: center; padding-top: 8px; padding-bottom: 8px; }
-  .footer-inner { flex-direction: column; text-align: center; }
-  .hero { padding: 48px 20px; }
+  .footer-inner { flex-direction: column; text-align: center; padding: 0 16px; }
+  .footer-links { justify-content: center; }
+  .band-coming { padding: 32px 0; }
+  .lede { font-size: 1.1rem; padding: 12px 22px; }
+  .header-inner { padding: 8px 16px; }
+  .logo-row { gap: 16px; }
+  .about-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+  .band-solid { padding: 48px 0; }
+  .mascot { height: 110px; }
 }
