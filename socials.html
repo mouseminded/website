@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>News — Mouse Minded Games</title>
+  <title>Socials — Mouse Minded Games</title>
   <meta name="description" content="Mouse Minded Games — indie game studio.">
   <link rel="icon" href="img/favicon.png?v=__BUILD__" type="image/png">
   <link rel="preload" href="fonts/YoungSerif-Regular.woff2?v=__BUILD__" as="font" type="font/woff2" crossorigin>
@@ -22,9 +22,9 @@
       <nav class="site-nav" aria-label="Main">
         <a href="index.html">Home</a>
         <a href="games.html">Games</a>
-        <a href="news.html" aria-current="page">News</a>
+        <a href="news.html">News</a>
         <a href="about.html">About</a>
-        <a href="socials.html">Socials</a>
+        <a href="socials.html" aria-current="page">Socials</a>
       </nav>
     </div>
   </header>
@@ -32,13 +32,40 @@
   <main id="top">
     <!-- Page title band -->
     <section class="band band-solid band-title">
-      <div class="wrap"><h1 class="page-title">News</h1></div>
+      <div class="wrap"><h1 class="page-title">Socials</h1></div>
     </section>
 
-    <!-- Stamped band -->
+    <!-- Description band (stamped): intro + one card per social account -->
     <section class="band band-stamp band-stamped band-grow">
       <div class="wrap">
-        <p class="panel lede">No snacks found.</p>
+        <p class="panel lede">Follow us on our socials for the latest and greatest!</p>
+
+        <div class="social-row">
+          <a class="social-card" href="https://x.com/mousemindedllc" target="_blank" rel="noopener">
+            <img src="img/social/x.png?v=__BUILD__" alt="" width="320" height="320">
+            <span class="panel social-name">X (Twitter)<small>@mousemindedllc</small></span>
+          </a>
+
+          <a class="social-card" href="https://www.facebook.com/profile.php?id=61594858096816" target="_blank" rel="noopener">
+            <img src="img/social/facebook.png?v=__BUILD__" alt="" width="320" height="319">
+            <span class="panel social-name">Facebook<small>Mouse Minded Games</small></span>
+          </a>
+
+          <a class="social-card" href="https://www.youtube.com/@mousemindedllc" target="_blank" rel="noopener">
+            <img src="img/social/youtube.png?v=__BUILD__" alt="" width="320" height="224">
+            <span class="panel social-name">YouTube<small>@mousemindedllc</small></span>
+          </a>
+
+          <!-- DISCORD (hidden for now). To turn it on:
+               1. put the Discord icon at img/social/discord.png
+               2. replace YOUR-INVITE with your server invite code
+               3. delete this comment's opening and closing lines
+          <a class="social-card" href="https://discord.gg/YOUR-INVITE" target="_blank" rel="noopener">
+            <img src="img/social/discord.png?v=__BUILD__" alt="" width="320" height="320">
+            <span class="panel social-name">Discord<small>Join the server</small></span>
+          </a>
+          -->
+        </div>
       </div>
     </section>
 
